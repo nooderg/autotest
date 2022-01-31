@@ -1,5 +1,5 @@
 use rocket::http::Status;
-use rocket_contrib::json::Json;
+use rocket::serde::json::Json;
 
 use crate::application::command::register_user_command::RegisterUserCommand;
 use crate::application::command::register_user_handler::RegisterUserCommandHandler;
