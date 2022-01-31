@@ -9,25 +9,14 @@ services:
   #   ports:
   #     - "3000:3000"
   #   depends_on:
-  #     - cqrs_example_postgres_write
-  #     - cqrs_example_postgres_read
+  #     - autotest_db
 
-  cqrs_example_postgres_write:
-    container_name: cqrs_example_postgres_write
+  autotest_db:
+    container_name: autotest_db
     image: postgres:9.6
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: developer
       POSTGRES_PASSWORD: developer
-      POSTGRES_DB: cqrs_example_write
-
-  cqrs_example_postgres_read:
-    container_name: cqrs_example_postgres_read
-    image: postgres:9.6
-    ports:
-      - "5433:5432"
-    environment:
-      POSTGRES_USER: developer
-      POSTGRES_PASSWORD: developer
-      POSTGRES_DB: cqrs_example_read
+      POSTGRES_DB: autotest

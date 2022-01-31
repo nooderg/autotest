@@ -1,2 +1,2 @@
 [print_schema]
-file = "src/write_schema.rs"
+file = "src/migrate.rs"

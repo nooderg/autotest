@@ -15,8 +15,7 @@ extern crate lazy_static;
 pub mod application;
 pub mod domain;
 pub mod infrastructure;
-pub mod read_schema;
-pub mod write_schema;
+pub mod migrate;
 
 // #[derive(Debug)]
 // struct MyEvent {

@@ -1,5 +1,5 @@
 [package]
-name = "cqrs-implementation"
+name = "autotest"
 version = "0.1.0"
 authors = ["Kacper Perzankowski <perzankowski.kacper@gmail.com>"]
 edition = "2018"

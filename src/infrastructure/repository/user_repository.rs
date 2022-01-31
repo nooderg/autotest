@@ -4,7 +4,7 @@ use crate::domain::user::User;
 use crate::domain::user_repository::UserRepository;
 use crate::infrastructure::models::write::new_user::NewUser;
 use crate::infrastructure::repository::connection_manager::ConnectionManager;
-use crate::write_schema::users;
+use crate::migrate::users;
 
 pub struct ORMUserRepository {
     connection_manager: ConnectionManager,
@@ -18,7 +18,7 @@ impl UserRepository for ORMUserRepository {
     }
 
     fn add(&self, new_user: NewUser) -> User {
-        let conn = &self.connection_manager.connection_write;
+        let conn = &self.connection_manager.connection;
         diesel::insert_into(users::table)
             .values(&new_user)
             .get_result::<User>(conn)
