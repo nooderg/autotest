@@ -1,4 +1,4 @@
-use crate::migrate::users;
+use crate::schema::users;
 
 #[derive(Insertable)]
 #[table_name="users"]

@@ -4,7 +4,7 @@ use crate::domain::user::User;
 use crate::domain::user_repository::UserRepository;
 use crate::infrastructure::models::write::new_user::NewUser;
 use crate::infrastructure::repository::connection_manager::ConnectionManager;
-use crate::migrate::users;
+use crate::schema::users;
 
 pub struct ORMUserRepository {
     connection_manager: ConnectionManager,
