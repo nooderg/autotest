@@ -19,6 +19,7 @@ impl RegisterUserCommandHandler {
             first_name: command.first_name().clone(),
             last_name: command.last_name().clone(),
             email: command.email().clone(),
+            password: command.password().clone(),
         };
         let added_user = self.user_repository.add(user);
         added_user.register_user();

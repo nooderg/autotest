@@ -10,7 +10,16 @@ pub fn register(data: Json<RegisterUserCommand>) -> Status {
         data.first_name().clone(),
         data.last_name().clone(),
         data.email().clone(),
+        data.password().clone(),
     );
     RegisterUserCommandHandler::new().handle(command);
+    Status::Ok
+}
+
+#[post("/login", format = "application/json", data = "<data>")]
+pub fn login(data: Json<LoginUserCommand>) -> Status {
+    let command = LoginUserCommand::new(
+        data.email().clone(),
+    );
     Status::Ok
 }
