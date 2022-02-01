@@ -33,4 +33,7 @@ impl RegisterUserCommand {
     pub fn email(&self) -> &String {
         &self.email
     }
+    pub fn password(&self) -> &String {
+        &self.password
+    }
 }
