@@ -108,7 +108,6 @@ dependencies = [
  "eventbus",
  "lazy_static",
  "pwhash",
- "rand",
  "rocket",
  "rocket_dyn_templates",
  "serde",
