@@ -1,5 +1,3 @@
-#![feature(proc_macro_hygiene, decl_macro)]
-extern crate rocket_contrib;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
@@ -35,10 +33,10 @@ pub mod schema;
 
 // post_event!(&event_bus, &mut event, MyEvent);
 
-fn main() {
+#[launch]
+fn rocket() -> _ {
     infrastructure::event_bus::register::register_events();
 
-    rocket::ignite()
+    rocket::build()
         .mount("/users/c/", infrastructure::api::user_routes())
-        .launch();
 }
