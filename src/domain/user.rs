@@ -10,6 +10,7 @@ pub struct User {
     first_name: Option<String>,
     last_name: Option<String>,
     email: Option<String>,
+    password: Option<String>,
     created_at: SystemTime,
 }
 
@@ -19,6 +20,7 @@ impl User {
         first_name: Option<String>,
         last_name: Option<String>,
         email: Option<String>,
+        password: Option<String>,
         created_at: SystemTime,
     ) -> Self {
         Self {
@@ -26,6 +28,7 @@ impl User {
             first_name: first_name,
             last_name: last_name,
             email: email,
+            password: password,
             created_at: created_at,
         }
     }
