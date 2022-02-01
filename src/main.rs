@@ -14,6 +14,7 @@ pub mod application;
 pub mod domain;
 pub mod infrastructure;
 pub mod schema;
+pub mod services;
 
 // #[derive(Debug)]
 // struct MyEvent {
@@ -35,7 +36,7 @@ pub mod schema;
 
 #[launch]
 fn rocket() -> _ {
-    infrastructure::event_bus::register::register_events();
+    infrastructure::event_bus::register::register_events();    
 
     rocket::build()
         .mount("/users/c/", infrastructure::api::user_routes())
