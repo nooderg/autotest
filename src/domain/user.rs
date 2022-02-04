@@ -1,6 +1,7 @@
 use uuid::Uuid;
 use std::time::SystemTime;
 use crate::application::event::registered_user_event::RegisteredUserEvent;
+use crate::application::event::deleted_user_event::DeletedUserEvent;
 use crate::application::event::Event;
 use crate::infrastructure::event_bus::EVENT_BUS;
 
@@ -37,6 +38,10 @@ impl User {
         self.apply(Event::RegisteredUser);
     }
 
+    pub fn delete_user(&self) -> () {
+        self.apply(Event::DeletedUser);
+    }
+
     fn apply(&self, event: Event) {
         match event {
             Event::RegisteredUser => {
@@ -46,7 +51,13 @@ impl User {
                     email: self.email.clone().unwrap(),
                 };
                 post_event!(&EVENT_BUS, &mut data, RegisteredUserEvent);
-            }
+            },
+            Event::DeletedUser => {
+                let mut data = DeletedUserEvent {
+                    id: self.id.clone(),
+                };
+                post_event!(&EVENT_BUS, &mut data, DeletedUserEvent);
+            },
         }
     }
 }
