@@ -1,4 +1,6 @@
 use diesel::RunQueryDsl;
+use diesel::prelude::*;
+use uuid::Uuid;
 
 use crate::domain::user::User;
 use crate::domain::user_repository::UserRepository;
@@ -23,5 +25,14 @@ impl UserRepository for ORMUserRepository {
             .values(&new_user)
             .get_result::<User>(conn)
             .expect("Error saving User")
+    }
+
+    fn show(&self, user_id: Uuid) -> User {
+        use crate::schema::users::dsl::*;
+        let conn = &self.connection_manager.connection;
+
+        users.filter(id.eq(user_id))
+            .first(conn)
+            .expect("Error User not found")
     }
 }
