@@ -1,7 +1,6 @@
 use crate::application::command::delete_user_command::DeleteUserCommand;
 use crate::domain::user_repository::UserRepository;
 use crate::infrastructure::repository::user_repository::ORMUserRepository;
-use uuid::Uuid;
 
 pub struct DeleteUserCommandHandler {
     user_repository: ORMUserRepository,

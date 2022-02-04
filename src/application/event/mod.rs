@@ -6,5 +6,5 @@ pub mod deleted_user_listener;
 #[derive(PartialEq)]
 pub enum Event {
     RegisteredUser,
-    DeletedUser
+    DeletedUser,
 }

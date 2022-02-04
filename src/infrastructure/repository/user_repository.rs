@@ -29,7 +29,9 @@ impl UserRepository for ORMUserRepository {
 
     fn remove(&self, user_id: Uuid) -> bool {
         let conn = &self.connection_manager.connection;
-        diesel::delete(users::table.filter(id.eq(user_id))).execute(conn);
-        return true;
+        let deleted_row = diesel::delete(users::table.filter(id.eq(user_id)))
+            .execute(conn);
+        
+        deleted_row == Ok(1)
     }
 }

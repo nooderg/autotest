@@ -17,7 +17,7 @@ pub fn register(data: Json<RegisterUserCommand>) -> Status {
         data.password().clone(),
     );
     RegisterUserCommandHandler::new().handle(command);
-    Status::Ok
+    Status::Created
 }
 
 #[post("/login", format = "application/json", data = "<data>")]
@@ -30,11 +30,14 @@ pub fn login(data: Json<LoginUserCommand>) -> Status {
     Status::Ok
 }
 
-#[post("/delete", format = "application/json", data = "<data>")]
+#[delete("/", format = "application/json", data = "<data>")]
 pub fn delete(data: Json<DeleteUserCommand>) -> Status {
     let command = DeleteUserCommand::new(
         data.get_id().clone(),
     );
-    DeleteUserCommandHandler::new().handle(command);
-    Status::Ok
+    
+    if DeleteUserCommandHandler::new().handle(command) {
+        return Status::NoContent;
+    };
+    Status::BadRequest
 }
