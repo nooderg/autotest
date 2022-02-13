@@ -18,7 +18,7 @@ impl UserRepository for ORMUserRepository {
     }
 
     fn add(&self, new_user: NewUser) -> User {
-        let conn = &self.connection_manager.connection_write;
+        let conn = &self.connection_manager.connection;
         diesel::insert_into(users::table)
             .values(&new_user)
             .get_result::<User>(conn)
