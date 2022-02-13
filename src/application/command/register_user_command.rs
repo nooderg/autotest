@@ -1,16 +1,20 @@
+use crate::services::password_service::hash_password;
+
 #[derive(Serialize, Deserialize)]
 pub struct RegisterUserCommand {
     first_name: String,
     last_name: String,
     email: String,
+    password: String,
 }
 
 impl RegisterUserCommand {
-    pub fn new(first_name: String, last_name: String, email: String) -> RegisterUserCommand {
+    pub fn new(first_name: String, last_name: String, email: String, password :String) -> RegisterUserCommand {
         RegisterUserCommand {
             first_name: first_name,
             last_name: last_name,
             email: email,
+            password : hash_password(password),
         }
     }
 
@@ -24,5 +28,9 @@ impl RegisterUserCommand {
 
     pub fn email(&self) -> &String {
         &self.email
+    }
+
+    pub fn password(&self) -> &String {
+        &self.password
     }
 }

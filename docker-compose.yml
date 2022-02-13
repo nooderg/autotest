@@ -9,8 +9,7 @@ services:
   #   ports:
   #     - "3000:3000"
   #   depends_on:
-  #     - cqrs_example_postgres_write
-  #     - cqrs_example_postgres_read
+  #     - autotest_db
 
   autotest_db:
     container_name: autotest_db

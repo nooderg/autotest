@@ -1,6 +1,8 @@
 use rocket::http::Status;
-use rocket_contrib::json::Json;
+use rocket::serde::json::Json;
 
+use crate::application::command::login_user_command::LoginUserCommand;
+use crate::application::command::login_user_handler::LoginUserCommandHandler;
 use crate::application::command::register_user_command::RegisterUserCommand;
 use crate::application::command::register_user_handler::RegisterUserCommandHandler;
 
@@ -10,7 +12,18 @@ pub fn register(data: Json<RegisterUserCommand>) -> Status {
         data.first_name().clone(),
         data.last_name().clone(),
         data.email().clone(),
+        data.password().clone(),
     );
     RegisterUserCommandHandler::new().handle(command);
+    Status::Ok
+}
+
+#[post("/login", format = "application/json", data = "<data>")]
+pub fn login(data: Json<LoginUserCommand>) -> Status {
+    let command = LoginUserCommand::new(
+        data.email().clone(),
+        data.password().clone(),
+    );
+    LoginUserCommandHandler::new().handle(command);
     Status::Ok
 }
