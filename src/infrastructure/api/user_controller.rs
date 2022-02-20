@@ -11,6 +11,8 @@ use crate::application::command::register_user_handler::RegisterUserCommandHandl
 use crate::application::command::update_user_command::UpdateUserCommand;
 use crate::application::command::update_user_handler::UpdateUserCommandHandler;
 use crate::domain::user::User;
+use crate::application::command::delete_user_command::DeleteUserCommand;
+use crate::application::command::delete_user_handler::DeleteUserCommandHandler;
 
 #[post("/register", format = "application/json", data = "<data>")]
 pub fn register(data: Json<RegisterUserCommand>) -> Status {
@@ -21,7 +23,7 @@ pub fn register(data: Json<RegisterUserCommand>) -> Status {
         data.password().clone(),
     );
     RegisterUserCommandHandler::new().handle(command);
-    Status::Ok
+    Status::Created
 }
 
 #[post("/login", format = "application/json", data = "<data>")]
@@ -46,6 +48,7 @@ pub fn update(data: Json<UpdateUserCommand>) -> Status {
     UpdateUserCommandHandler::new().handle(data.id().clone(),command);
     Status::Ok
 }
+
 #[get("/<uuid>", format = "application/json")]
 pub fn show(uuid: Uuid) -> Json<User> {
     let command = ShowUserCommand::new(
@@ -54,4 +57,16 @@ pub fn show(uuid: Uuid) -> Json<User> {
     
     let user = ShowUserCommandHandler::new().handle(command);
     Json(user)
+}
+
+#[delete("/", format = "application/json", data = "<data>")]
+pub fn delete(data: Json<DeleteUserCommand>) -> Status {
+    let command = DeleteUserCommand::new(
+        data.get_id().clone(),
+    );
+    
+    if DeleteUserCommandHandler::new().handle(command) {
+        return Status::NoContent;
+    };
+    Status::BadRequest
 }

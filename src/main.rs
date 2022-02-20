@@ -39,5 +39,5 @@ fn rocket() -> _ {
     infrastructure::event_bus::register::register_events();    
 
     rocket::build()
-        .mount("/users/c/", infrastructure::api::user_routes())
+        .mount("/users/", infrastructure::api::user_routes())
 }

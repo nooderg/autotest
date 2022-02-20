@@ -9,4 +9,5 @@ pub trait UserRepository {
     fn add(&self, new_user: NewUser) -> User;
     fn update(&self,id:Uuid, new_user: NewUser) -> User;
     fn show(&self, id: Uuid) -> User;
+    fn remove(&self, id: Uuid) -> bool;
 }

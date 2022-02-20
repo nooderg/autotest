@@ -48,4 +48,12 @@ impl UserRepository for ORMUserRepository {
             .first(conn)
             .expect("Error User not found")
     }
+    
+    fn remove(&self, user_id: Uuid) -> bool {
+        let conn = &self.connection_manager.connection;
+        let deleted_row = diesel::delete(users::table.filter(id.eq(user_id)))
+            .execute(conn);
+        
+        deleted_row == Ok(1)
+    }
 }
