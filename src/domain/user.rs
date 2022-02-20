@@ -1,17 +1,19 @@
 use uuid::Uuid;
 use std::time::SystemTime;
+
+use crate::schema::users;
 use crate::application::event::registered_user_event::RegisteredUserEvent;
 use crate::application::event::update_user_event::UpdateUserEvent;
 use crate::application::event::Event;
 use crate::infrastructure::event_bus::EVENT_BUS;
 
-#[derive(Queryable)]
+#[derive(Serialize, Deserialize, Queryable, AsChangeset)]
 pub struct User {
     id: Uuid,
     first_name: Option<String>,
     last_name: Option<String>,
     email: Option<String>,
-    password: Option<String>,
+    #[serde(skip_serializing)] password: Option<String>,
     created_at: SystemTime,
 }
 

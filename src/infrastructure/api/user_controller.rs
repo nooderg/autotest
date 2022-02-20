@@ -1,12 +1,16 @@
 use rocket::http::Status;
 use rocket::serde::json::Json;
+use uuid::Uuid;
 
+use crate::application::command::show_user_command::ShowUserCommand;
+use crate::application::command::show_user_handler::ShowUserCommandHandler;
 use crate::application::command::login_user_command::LoginUserCommand;
 use crate::application::command::login_user_handler::LoginUserCommandHandler;
 use crate::application::command::register_user_command::RegisterUserCommand;
 use crate::application::command::register_user_handler::RegisterUserCommandHandler;
 use crate::application::command::update_user_command::UpdateUserCommand;
 use crate::application::command::update_user_handler::UpdateUserCommandHandler;
+use crate::domain::user::User;
 
 #[post("/register", format = "application/json", data = "<data>")]
 pub fn register(data: Json<RegisterUserCommand>) -> Status {
@@ -41,4 +45,13 @@ pub fn update(data: Json<UpdateUserCommand>) -> Status {
     );
     UpdateUserCommandHandler::new().handle(data.id().clone(),command);
     Status::Ok
+}
+#[get("/<uuid>", format = "application/json")]
+pub fn show(uuid: Uuid) -> Json<User> {
+    let command = ShowUserCommand::new(
+        uuid.clone(),
+    );
+    
+    let user = ShowUserCommandHandler::new().handle(command);
+    Json(user)
 }
