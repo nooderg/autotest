@@ -1,4 +1,4 @@
-use crate::services::password_service::hash_password;
+use crate::core::services::user::hash_password;
 
 #[derive(Serialize, Deserialize)]
 pub struct RegisterUserCommand {

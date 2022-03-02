@@ -1,5 +1,5 @@
 use crate::application::command::delete_user_command::DeleteUserCommand;
-use crate::domain::user_repository::UserRepository;
+use crate::core::ports::user::UserRepository;
 use crate::infrastructure::repository::user_repository::ORMUserRepository;
 
 pub struct DeleteUserCommandHandler {
@@ -14,7 +14,6 @@ impl DeleteUserCommandHandler {
     }
 
     pub fn handle(&self, command: DeleteUserCommand) -> bool {
-        let user_removed = self.user_repository.remove(command.get_id());
-        return user_removed;
+        self.user_repository.delete(command.get_id())
     }
 }

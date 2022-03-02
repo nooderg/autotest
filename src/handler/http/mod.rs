@@ -1,4 +1,5 @@
-mod user_controller;
+pub mod user_controller;
+pub mod middleware;
 
 pub fn user_routes() -> Vec<rocket::Route> {
     routes![

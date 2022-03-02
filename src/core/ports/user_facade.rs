@@ -1,8 +1,6 @@
-use crate::schema::users;
 
-#[derive(Insertable)]
-#[table_name="users"]
-pub struct NewUser {
+//TODO use facade in controllers
+pub struct UserFacade {
     pub first_name: String,
     pub last_name: String,
     pub email: String,

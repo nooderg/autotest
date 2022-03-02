@@ -1,8 +1,10 @@
-use crate::domain::user::User;
+use crate::core::domain::user::User;
+use std::io::{Error, ErrorKind};
 
 use crate::application::command::show_user_command::ShowUserCommand;
-use crate::domain::user_repository::UserRepository;
+use crate::core::ports::user::UserRepository;
 use crate::infrastructure::repository::user_repository::ORMUserRepository;
+
 
 pub struct ShowUserCommandHandler {
     user_repository: ORMUserRepository,
@@ -15,7 +17,10 @@ impl ShowUserCommandHandler {
         }
     }
 
-    pub fn handle(&self, command: ShowUserCommand) -> User {
-        self.user_repository.show(command.id().clone())
+    pub fn handle(&self, command: ShowUserCommand) -> Result<User, Error> {
+        match self.user_repository.get(command.id().clone()) {
+            Ok(t) => return Ok(t),
+            Err(e) => return Err(Error::new(ErrorKind::BrokenPipe, e))
+        };
     }
 }

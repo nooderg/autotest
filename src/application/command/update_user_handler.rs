@@ -1,8 +1,10 @@
 use crate::application::command::update_user_command::UpdateUserCommand;
-use crate::domain::user_repository::UserRepository;
-use crate::infrastructure::models::write::new_user::NewUser;
+use crate::core::domain;
+use crate::core::ports::user::UserRepository;
+use crate::core::domain::user::User;
 use crate::infrastructure::repository::user_repository::ORMUserRepository;
 use uuid::Uuid;
+use std::io::{Error, ErrorKind};
 
 pub struct UpdateUserCommandHandler {
     user_repository: ORMUserRepository,
@@ -15,14 +17,18 @@ impl UpdateUserCommandHandler {
         }
     }
 
-    pub fn handle(&self, id:Uuid,command: UpdateUserCommand) -> () {
-        let user = NewUser {
-            first_name: command.first_name().clone(),
-            last_name: command.last_name().clone(),
-            email: command.email().clone(),
-            password: command.email().clone(),
+    pub fn handle(&self, id:Uuid, command: UpdateUserCommand) -> Result<domain::user::User, Error> {
+        let user = User {
+            id: id.clone(),
+            first_name: Some(command.first_name.clone()),
+            last_name: Some(command.last_name.clone()),
+            email: Some(command.email.clone()),
+            password: Some(command.password.clone()),
+            created_at: std::time::SystemTime::now(),
         };
-        let update_user = self.user_repository.update(command.id().clone() ,user);
-        update_user.update_user();
+        match self.user_repository.update(id.clone(), user) {
+            Ok(t) => return Ok(t),
+            Err(e) => return Err(Error::new(ErrorKind::BrokenPipe, e))
+        };
     }
 }
