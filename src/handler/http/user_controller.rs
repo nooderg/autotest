@@ -4,6 +4,7 @@ use rocket::response::status;
 use uuid::Uuid;
 
 use crate::core::domain::user::User;
+use crate::core::ports::user_response::UserSummary;
 use crate::handler::http::middleware::jwt;
 use crate::application::command::show_user_command::ShowUserCommand;
 use crate::application::command::show_user_handler::ShowUserCommandHandler;
@@ -17,10 +18,12 @@ use crate::application::command::delete_user_command::DeleteUserCommand;
 use crate::application::command::delete_user_handler::DeleteUserCommandHandler;
 
 
+
+
 #[post("/register", format = "application/json", data = "<data>")]
 pub fn register(data: Json<RegisterUserCommand>) 
     -> Result<
-        status::Custom<Json<User>>,
+        status::Custom<Json<UserSummary>>,
         status::Custom<Json<String>>> {
 
     let command = RegisterUserCommand::new(
@@ -34,8 +37,8 @@ pub fn register(data: Json<RegisterUserCommand>)
         Ok(t) => return Ok(
             status::Custom(
                 http::Status::Ok, 
-                Json(t))
-            ),
+                Json(UserSummary::new(t))
+            )),
         Err(e) => return Err(
             status::Custom(http::Status::BadRequest , Json(e.to_string())))
     }
@@ -67,7 +70,7 @@ pub fn login(data: Json<LoginUserCommand>)
 #[patch("/update", format = "application/json", data = "<data>")]
 pub fn update(data: Json<UpdateUserCommand>, middleware: jwt::UserTokenClaims) 
     -> Result<
-        status::Custom<Json<User>>,
+        status::Custom<Json<UserSummary>>,
         status::Custom<Json<String>>> {
             
     let command = UpdateUserCommand::new(
@@ -81,7 +84,7 @@ pub fn update(data: Json<UpdateUserCommand>, middleware: jwt::UserTokenClaims)
     match UpdateUserCommandHandler::new().handle(id.unwrap(), command) {
         Ok(t) => Ok(status::Custom(
             http::Status::Ok,
-            Json(t)
+            Json(UserSummary::new(t))
         )),
         Err(e) => Err(status::Custom(
             http::Status::BadRequest,
@@ -93,7 +96,7 @@ pub fn update(data: Json<UpdateUserCommand>, middleware: jwt::UserTokenClaims)
 #[get("/<uuid>", format = "application/json")]
 pub fn show(uuid: Uuid, middleware: jwt::UserTokenClaims) 
     -> Result<
-        status::Custom<Json<User>>,
+        status::Custom<Json<UserSummary>>,
         status::Custom<Json<String>>> {
         
     let command = ShowUserCommand::new(
@@ -103,7 +106,7 @@ pub fn show(uuid: Uuid, middleware: jwt::UserTokenClaims)
     match ShowUserCommandHandler::new().handle(command) {
         Ok(t) => Ok(status::Custom(
             http::Status::Ok,
-            Json(t)
+            Json(UserSummary::new(t))
         )),
         Err(e) => Err(status::Custom(
             http::Status::BadRequest,
@@ -112,11 +115,10 @@ pub fn show(uuid: Uuid, middleware: jwt::UserTokenClaims)
     }
 }
 
-#[delete("/", format = "application/json", data = "<data>")]
-pub fn delete(data: Json<DeleteUserCommand>, middleware: jwt::UserTokenClaims) -> http::Status {
-    let command = DeleteUserCommand::new(
-        data.get_id().clone(),
-    );
+#[delete("/", format = "application/json")]
+pub fn delete(middleware: jwt::UserTokenClaims) -> http::Status {
+    let id = uuid::Uuid::parse_str(&middleware.sub).unwrap();
+    let command = DeleteUserCommand::new(id);
     
     if DeleteUserCommandHandler::new().handle(command) {
         return http::Status::NoContent;

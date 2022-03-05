@@ -1,15 +1,15 @@
 version: "3"
 services:
-  # cqrs_example_api:
-  #   container_name: cqrs_example_api
-  #   build: .
-  #   volumes:
-  #     - .:/usr/src/app
-  #   command: cargo watch -x run
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - autotest_db
+  autotest_api:
+    container_name: autotest_api
+    build: .
+    volumes:
+      - .:/usr/src/app
+    command: cargo run src/main.rs
+    ports:
+      - "8000:8000"
+    depends_on:
+      - autotest_db
 
   autotest_db:
     container_name: autotest_db

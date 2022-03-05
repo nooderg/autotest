@@ -7,21 +7,21 @@ use crate::schema::users;
 #[table_name="users"]
 pub struct User {
     pub id: Uuid,
-    pub first_name: Option<String>,
-    pub last_name: Option<String>,
-    pub email: Option<String>,
+    pub first_name: String,
+    pub last_name: String,
+    pub email: String,
     #[serde(skip_serializing)] 
-    pub password: Option<String>,
+    pub password: String,
     pub created_at: SystemTime,
 }
 
 impl User {
     pub fn new(
         id: Uuid,
-        first_name: Option<String>,
-        last_name: Option<String>,
-        email: Option<String>,
-        password: Option<String>,
+        first_name: String,
+        last_name: String,
+        email: String,
+        password: String,
         created_at: SystemTime,
     ) -> Self {
         Self {

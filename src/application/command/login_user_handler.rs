@@ -23,7 +23,7 @@ impl LoginUserCommandHandler {
             Ok(t) => t,
             Err(e) => return Err(Error::new(ErrorKind::BrokenPipe, e))
         };
-        let h = user.password.unwrap();
+        let h = user.password;
         let p = command.password();
  
         if !bcrypt::verify(p, &h) {

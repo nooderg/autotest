@@ -20,10 +20,10 @@ impl UpdateUserCommandHandler {
     pub fn handle(&self, id:Uuid, command: UpdateUserCommand) -> Result<domain::user::User, Error> {
         let user = User {
             id: id.clone(),
-            first_name: Some(command.first_name.clone()),
-            last_name: Some(command.last_name.clone()),
-            email: Some(command.email.clone()),
-            password: Some(command.password.clone()),
+            first_name: command.first_name.clone(),
+            last_name: command.last_name.clone(),
+            email: command.email.clone(),
+            password: command.password.clone(),
             created_at: std::time::SystemTime::now(),
         };
         match self.user_repository.update(id.clone(), user) {
