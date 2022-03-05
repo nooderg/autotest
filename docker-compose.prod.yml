@@ -1,0 +1,22 @@
+version: "3"
+services:
+  autotest_api:
+    container_name: autotest_api
+    build: .
+    volumes:
+      - .:/usr/src/app
+    command: cargo run src/main.rs
+    ports:
+      - "8000:8000"
+    depends_on:
+      - autotest_db
+
+  autotest_db:
+    container_name: autotest_db
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: developer
+      POSTGRES_DB: autotest
