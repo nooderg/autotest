@@ -8,7 +8,7 @@ use std::io::{Error, ErrorKind};
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserTokenClaims {
     pub sub: String,
-    pub exp: usize,
+    pub exp: i64,
 }
 
 #[rocket::async_trait]

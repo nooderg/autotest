@@ -94,7 +94,7 @@ pub fn update(data: Json<UpdateUserCommand>, middleware: jwt::UserTokenClaims)
 }
 
 #[get("/<uuid>", format = "application/json")]
-pub fn show(uuid: Uuid, middleware: jwt::UserTokenClaims) 
+pub fn show(uuid: Uuid, _middleware: jwt::UserTokenClaims) 
     -> Result<
         status::Custom<Json<UserSummary>>,
         status::Custom<Json<String>>> {

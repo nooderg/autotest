@@ -14,10 +14,12 @@ pub fn hash_password(password: String) -> String {
 static ONE_WEEK: i64 = 60 * 60 * 24 * 7; // in seconds
 
 pub fn create_token(id: uuid::Uuid) -> Result<String, Error>{
+    let now = Utc::now().timestamp_nanos() / 1_000_000_000; // nanosecond -> second
+
     let key = b"secret";
     let my_claims = middleware::jwt::UserTokenClaims{
         sub: id.to_string(),
-        exp: 0,
+        exp: now + ONE_WEEK,
     };
 
     match encode(&Header::default(), &my_claims, &EncodingKey::from_secret(key)) {
