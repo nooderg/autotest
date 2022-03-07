@@ -1,7 +1,6 @@
 use rocket::http::Status;
 use rocket::outcome::Outcome;
 use rocket::request::{self, FromRequest, Request};
-use rocket::response::status;
 use crate::core::services::user;
 use std::io::{Error, ErrorKind};
 

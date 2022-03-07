@@ -1,9 +1,7 @@
 use rocket::http;
 use rocket::serde::json::Json;
 use rocket::response::status;
-use uuid::Uuid;
 
-use crate::core::domain::user::User;
 use crate::core::ports::user_response::UserSummary;
 use crate::handler::http::middleware::jwt;
 use crate::application::command::show_user_command::ShowUserCommand;

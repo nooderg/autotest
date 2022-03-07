@@ -1,7 +1,6 @@
 use diesel::RunQueryDsl;
 use diesel::prelude::*;
 use uuid::Uuid;
-use std::io::Error;
 
 use crate::core::domain::user::User;
 use crate::core::ports::user::UserRepository;
