@@ -28,28 +28,28 @@ help:
 	@echo "# How to setup the project on your machine ? Run make dev in one tab, then run the api in another after you made your changes." 
 	@echo "# ${PURPLE}init${RESET}: Use it to init the githooks" 
 	@echo "# ${BLUE}dev${RESET}: run docker-compose (without api)" 
-	@echo "# ${GREEN}prod${RESET}: run docker-compose (fully fonctionnal)" 
 	@echo "# ${RED}stop${RESET}: stop docker containers" 
 	@echo "# ${YELLOW}logs${RESET}: display logs and attach" 
+
 
 init:
 # Create git hooks
 	git config core.hooksPath .githooks
 
-dev:
+
+staging:
 	@echo "# ${BLUE}dev${RESET}: Running docker-compose without the API" 
 	docker-compose \
-		--file docker-compose.dev.yaml up \
+		--file docker-compose.staging.yaml up \
 		--detach \
 		--build \
 		--remove-orphans \
 		--force-recreate \
 
-stop_dev:
-	docker-compose -f docker-compose.dev.yaml stop 
-	
-stop_prod:
-	docker-compose -f docker-compose.prod.yaml stop 
+
+stop:
+	docker-compose -f docker-compose.staging.yaml stop 
+
 
 logs:
-	docker-compose logs --follow
+	docker-compose -f docker-compose.staging.yaml logs --follow

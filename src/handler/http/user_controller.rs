@@ -93,14 +93,15 @@ pub fn update(data: Json<UpdateUserCommand>, middleware: jwt::UserTokenClaims)
     }
 }
 
-#[get("/<uuid>", format = "application/json")]
-pub fn show(uuid: Uuid, _middleware: jwt::UserTokenClaims) 
+#[get("/", format = "application/json")]
+pub fn show(middleware: jwt::UserTokenClaims) 
     -> Result<
         status::Custom<Json<UserSummary>>,
         status::Custom<Json<String>>> {
         
+    let id = uuid::Uuid::parse_str(&middleware.sub);
     let command = ShowUserCommand::new(
-        uuid.clone(),
+        id.unwrap().clone(),
     );
     
     match ShowUserCommandHandler::new().handle(command) {

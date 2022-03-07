@@ -5,8 +5,6 @@ extern crate rocket;
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
-#[macro_use]
-extern crate lazy_static;
 
 pub mod application;
 pub mod core;

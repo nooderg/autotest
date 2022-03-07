@@ -1,6 +1,14 @@
-[development]
-address = "127.0.0.1"
-port = 3000
+[debug]
+address = "0.0.0.0"
+port = 8000
 keep_alive = 5
-log = "normal"
-limits = { forms = 32768 }
+
+[staging]
+address = "0.0.0.0"
+port = 8000
+keep_alive = 5
+
+[release]
+address = "0.0.0.0"
+port = 8000
+keep_alive = 5

@@ -5,11 +5,12 @@ services:
     build: .
     volumes:
       - .:/usr/src/app
-    command: cargo run src/main.rs
     ports:
       - "8000:8000"
     depends_on:
       - autotest_db
+    env_file:
+      - .env.staging
 
   autotest_db:
     container_name: autotest_db
