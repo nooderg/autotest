@@ -17,7 +17,7 @@ pub trait UserRepository {
 // UserService is the interface and entrypoint to acces domain logic
 // TODO: impletement the interface
 pub trait UserService {
-    fn register(new_user: UserFacade);
+    fn register(new_user: UserFacade) -> User;
     fn login();
     fn verify_token();
     fn check_permissions();
