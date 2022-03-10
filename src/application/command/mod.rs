@@ -8,3 +8,5 @@ pub mod update_user_command;
 pub mod update_user_handler;
 pub mod delete_user_command;
 pub mod delete_user_handler;
+pub mod generate_testing_command;
+pub mod generate_testing_handler;
