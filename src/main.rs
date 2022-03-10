@@ -19,4 +19,5 @@ fn rocket() -> _ {
     rocket::build()
         .attach(CORS)
         .mount("/users/", handler::http::user_routes())
+        .mount("/testing/", handler::http::testing_routes())
 }
