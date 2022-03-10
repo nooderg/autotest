@@ -12,13 +12,17 @@ impl GenerateTestingCommandHandler {
         }
     }
 
-    pub fn handle(&self, command: GenerateTestingCommand) -> Result<Testing, Error> {
-        let mut map = HashMap::new();
+    pub fn handle(&self, command: GenerateTestingCommand) -> Result<Testing, ureq::Error> {
+        /*let mut map = HashMap::new();
         map.insert("file", command.file());
         let client = reqwest::blocking::Client::new();
-        match client.post("localhost:8080/generate/").json(&map).send() {
-            Ok(t) => return Ok(Testing::new(command.file().to_string())),
+        match client.post("www.google.com").json(&map).send() {
+            Ok(_t) => return Ok(Testing::new(command.file().to_string())),
             Err(e) => return Err(Error::new(ErrorKind::BrokenPipe, e))
-        };
+        };*/
+        match ureq::post("http://www.google.com").send_json(ureq::json!({"file": command.file()})) {
+            Ok(_t) => return Ok(Testing::new(command.file().to_string())),
+            Err(e) => return Err(e)
+      }
     }
 }
