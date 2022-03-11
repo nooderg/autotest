@@ -1,6 +1,4 @@
 use crate::application::command::generate_testing_command::GenerateTestingCommand;
-use std::collections::HashMap;
-use std::io::{Error, ErrorKind};
 use crate::core::domain::testing::Testing;
 
 pub struct GenerateTestingCommandHandler {
