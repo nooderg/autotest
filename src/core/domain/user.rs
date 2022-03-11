@@ -12,6 +12,7 @@ pub struct User {
     pub email: String,
     #[serde(skip_serializing)] 
     pub password: String,
+    pub file_url: String,
     pub created_at: SystemTime,
 }
 
@@ -22,6 +23,7 @@ impl User {
         last_name: String,
         email: String,
         password: String,
+        file_url: String,
         created_at: SystemTime,
     ) -> Self {
         Self {
@@ -30,6 +32,7 @@ impl User {
             last_name: last_name,
             email: email,
             password: password,
+            file_url: file_url,
             created_at: created_at,
         }
     }

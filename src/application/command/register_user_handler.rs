@@ -24,6 +24,7 @@ impl RegisterUserCommandHandler {
             last_name: command.last_name().clone(),
             email: command.email().clone(),
             password: command.password().clone(),
+            file_url: "".to_owned(),
             created_at: SystemTime::now(),
         };
         

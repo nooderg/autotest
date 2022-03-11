@@ -8,6 +8,7 @@ pub struct UserSummary {
     first_name: String,
     last_name: String,
     email: String,
+    file_url: String,
     created_at: SystemTime,
 }
 
@@ -18,6 +19,7 @@ impl UserSummary {
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
+            file_url: user.file_url,
             created_at: user.created_at
         }
     }
