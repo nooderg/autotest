@@ -5,6 +5,7 @@ table! {
         last_name -> Varchar,
         email -> Varchar,
         password -> Varchar,
+        file_url -> Varchar,
         created_at -> Timestamp,
     }
 }
