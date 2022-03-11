@@ -19,6 +19,8 @@ pub trait UserRepository {
 pub trait UserService {
     fn register(new_user: UserFacade) -> User;
     fn login();
+    
+    // Will be useful when organizations will be implemented
     fn verify_token();
     fn check_permissions();
 }
