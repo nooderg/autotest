@@ -4,9 +4,11 @@ use rocket::response::status;
 use crate::core::ports::testing_response::TestingSummary;
 use crate::application::command::generate_testing_command::GenerateTestingCommand;
 use crate::application::command::generate_testing_handler::GenerateTestingCommandHandler;
+use crate::handler::http::middleware::jwt;
+
 
 #[post("/generate", format = "application/json", data = "<data>")]
-pub fn generate(data: Json<GenerateTestingCommand>) 
+pub fn generate(data: Json<GenerateTestingCommand>, _middleware: jwt::UserTokenClaims) 
     -> Result<
         status::Custom<Json<TestingSummary>>,
         status::Custom<Json<String>>> {
