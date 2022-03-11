@@ -1,3 +1,5 @@
+use crate::handler::http::middleware::cors;
+
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
@@ -6,7 +8,7 @@ extern crate rocket;
 extern crate diesel;
 extern crate dotenv;
 
-use crate::handler::http::middleware::cors::CORS;
+
 
 pub mod application;
 pub mod core;
@@ -17,7 +19,7 @@ pub mod handler;
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .attach(CORS)
+        .attach(cors::cors().to_cors().unwrap())
         .mount("/users/", handler::http::user_routes())
         .mount("/testing/", handler::http::testing_routes())
 }
