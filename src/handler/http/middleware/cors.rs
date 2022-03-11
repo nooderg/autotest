@@ -1,11 +1,6 @@
-use rocket::http::Header;
-use rocket::{Request, Response};
-use rocket::fairing::{Fairing, Info, Kind};
 use rocket_cors::{AllowedHeaders, AllowedOrigins};
-use std::error::Error;
 
 use rocket::http::Method;
-use rocket::{get, routes};
 
 
 

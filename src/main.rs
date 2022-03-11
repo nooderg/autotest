@@ -1,4 +1,3 @@
-use rocket_cors::{AllowedHeaders, AllowedOrigins};
 use crate::handler::http::middleware::cors;
 
 #[macro_use]
@@ -22,4 +21,5 @@ fn rocket() -> _ {
     rocket::build()
         .attach(cors::cors().to_cors().unwrap())
         .mount("/users/", handler::http::user_routes())
+        .mount("/testing/", handler::http::testing_routes())
 }
