@@ -12,6 +12,10 @@ Autotest is still under development. We are still making features.
 - [ ] Managed && automated testing instances
 - [ ] Statistics & API benchmark
 
+## Limitations
+Autotest is currently in turbo alpha. Which means, only really simple api work. 
+Tests needs to be independant from one another, and only one parameter per URL is currently supported. Please don't torture our parsing microservice, he is very nice and has a familly.
+
 ## 💸 And for what price?
 We did not decide ourselves on pricing yet. We'd like to have a free tier so you can try the product and decide if you want to adopt us!
 
@@ -30,7 +34,10 @@ Run the migration
 diesel database setup --database-url postgres://developer:developer@localhost:5432/autotest
 ```
 
-Now that the setup is done, close your container and run `make staging`
+Now that the setup is done, close your container and run 
+```
+make staging
+```
 
 ## 👉👈 Awesome! Can I have the API descrition?
 Yup, here it is: https://www.getpostman.com/collections/34af2658a9bd81eb244c
